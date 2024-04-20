@@ -18,7 +18,17 @@ class AdressDisplayFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    if(data['erro'] != null) {
+      return const Center(
+        child: Text(
+          'CEP não encontrado!',
+          style: TextStyle(
+            fontSize: 28,
+            color: Colors.yellowAccent,
+          ),
+        ),
+      );
+    } else{ return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -50,6 +60,6 @@ class AdressDisplayFragment extends StatelessWidget {
           ],
         ),
       ),
-    );
+    );}
   }
 }
