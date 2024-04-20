@@ -23,10 +23,9 @@ class _HomePageState extends State<HomePage> {
   );
 
   final Color primaryColor = Colors.yellowAccent;
-
   final TextEditingController cepController = TextEditingController();
-
-  String? textFieldMessageError = null;
+  String? textFieldMessageError;
+  bool isButtonEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +77,13 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
+                disabledBackgroundColor: Colors.grey[800],
                   backgroundColor: primaryColor,
                   padding: const EdgeInsets.all(10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
-                  )),
-              onPressed: findCep,
+                  ),),
+              onPressed: isButtonEnabled ? findCep : null,
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -112,14 +112,17 @@ class _HomePageState extends State<HomePage> {
     if(cep.isEmpty) {
       setState(() {
         textFieldMessageError = null;
+        isButtonEnabled = false;
       });
     } else if (cep.length != 8) {
       setState(() {
+        isButtonEnabled = false;
         textFieldMessageError =
             'O valor informado não corresponde a um CEP válido';
       });
     } else {
       setState(() {
+        isButtonEnabled = true;
         textFieldMessageError = null;
       });
     }
